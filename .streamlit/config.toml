@@ -1,0 +1,81 @@
+# .streamlit/config.toml
+# Configuration for Streamlit applications, including the Sentinel Health Co-Pilot web dashboards.
+
+# --- Server Configuration ---
+[server]
+# When running locally, Streamlit opens a browser tab. You can disable this.
+# headless = false
+# Automatically rerun the script when a source file is saved.
+runOnSave = true
+# Port to run on. Default is 8501.
+# port = 8501
+# Max upload size for st.file_uploader, in megabytes.
+maxUploadSize = 50 # Default is 200, can be reduced if not expecting large uploads.
+
+# --- Browser / Client Configuration ---
+[browser]
+# If true, gather usage statistics. Set to false for privacy or if not desired.
+gatherUsageStats = false
+# Initial sidebar state. "auto" means Streamlit decides. Can be "expanded" or "collapsed".
+# This is also set in st.set_page_config, which might take precedence.
+# initialSidebarState = "expanded"
+
+# --- Logger Configuration ---
+[logger]
+# Level of logging: error, warning, info, debug.
+# Can be overridden by app_config.py if your app sets logging level programmatically.
+level = "info" # Good default for deployed apps. Use "debug" for development.
+
+# --- Runner Configuration ---
+[runner]
+# Allow execution of "unsafe" functions which are not audited for security.
+# If your CSS or custom HTML needs it. `st.markdown(..., unsafe_allow_html=True)`
+# clientSideSslVerify = false # Advanced, usually not needed
+
+# --- Theme Configuration ---
+# This allows you to set a base theme and override specific colors.
+# This complements the Plotly theme set in ui_visualization_helpers.py for Streamlit's own components.
+# It's best if these colors align with your CSS variables and Plotly theme.
+# Example using conceptual variable names (replace with actual hex codes)
+[theme]
+# Primary accent color for interactive elements (widgets).
+primaryColor = "#1976D2" # Matches COLOR_ACTION_PRIMARY (Strong Blue)
+
+# Background color for the main content area.
+backgroundColor = "#FFFFFF" # Matches --sentinel-background-white (Clean White)
+
+# Background color for sidebar and most UI elements.
+secondaryBackgroundColor = "#f8f9fa" # Matches --sentinel-background-light-grey
+
+# Text color for the main content area.
+textColor = "#343a40" # Matches --sentinel-text-dark
+
+# Font family for all text in the app.
+# Options: "sans serif", "serif", "monospace".
+font = "sans serif" # Default, aligns well with the system font stack in CSS
+
+# --- Toolbar Configuration (top-right menu for deployed apps) ---
+[toolbar]
+# Show a "Deploy" button if relevant for some contexts (usually not for cloud deployment itself)
+# deployButton = { "enabled" = false }
+
+# Settings for the three-dots menu
+# customize settings for the settings dialog
+# settings = { "enabled" = true, "showDeployButton" = false, "showFeedbackButton" = false }
+
+# --- Custom Component Configuration (if you use any) ---
+# [component]
+# exampleCustomComponent = { "someOption" = "someValue" }
+
+# --- Embedding Configuration ---
+# Options for when the Streamlit app is embedded in an iframe.
+[mapbox]
+# If you were setting the Mapbox token globally via Streamlit's config
+# (though we handle it in ui_visualization_helpers via ENV VAR now).
+# This is another place it could potentially be set, but ENV VAR is more standard.
+# token = "YOUR_MAPBOX_ACCESS_TOKEN" # Not recommended to hardcode here
+
+# --- Deprecation Warnings ---
+[deprecation]
+# Show or hide specific deprecation warnings.
+# e.g., showPyplotGlobalUse = false
