@@ -1,0 +1,53 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Sentinel Co-Pilot Dev Container",
+  // Use a base image that has Python. You can find official Python images on Docker Hub.
+  // Or, a more general image like mcr.microsoft.com/vscode/devcontainers/universal:linux
+  "image": "mcr.microsoft.com/devcontainers/python:0-3.11", // Example with Python 3.11
+
+  // Features to add system packages (like build-essentials, libgdal-dev)
+  // This section adds common tools and then GDAL related libraries.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+        "installZsh": "false",
+        "installOhMyZsh": "false",
+        "upgradePackages": "true"
+    },
+    // For GDAL and GeoPandas dependencies
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+        "packages": "libgdal-dev,gdal-bin,libspatialindex-dev,build-essential,python3-dev"
+    }
+  },
+
+  // Post-create command to install Python packages from your requirements file
+  // This runs AFTER the features have installed system packages.
+  // Assumes your requirements file is at test/requirements_backend.txt
+  // Adjust the path if your requirements file is elsewhere (e.g. ./requirements.txt)
+  "postCreateCommand": "pip install --upgrade pip && pip install -r test/requirements_backend.txt",
+  
+  // VS Code specific settings (optional)
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python", // Or path from python image
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true, // Or flake8, etc.
+        "python.formatting.provider": "black"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "bierner.markdown-preview-github-styles",
+        "streetsidesoftware.code-spell-checker",
+        "charliermarsh.ruff" // Modern linter/formatter
+      ]
+    }
+  },
+
+  // Forward ports, e.g., for Streamlit (default is 8501)
+  "forwardPorts": [8501],
+
+  // Use a non-root user (good practice)
+  "remoteUser": "vscode" // Or "codespace" if that's the user in your image
+}
