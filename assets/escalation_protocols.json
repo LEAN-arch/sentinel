@@ -1,0 +1,40 @@
+{
+  "protocols": [
+    {
+      "trigger_event_code": "PATIENT_CRITICAL_SPO2", // Internal code for specific alert
+      "trigger_description": "Patient SpO2 critically low (<90%)",
+      "steps": [
+        {"action": "IMMEDIATE_ATTENTION_CHW", "guidance_code": "GUIDE_SPO2_LOW_CHW_FIELD"},
+        {"action": "NOTIFY_SUPERVISOR", "contact_method": "SMS_PED_APP", "message_template_code": "MSG_CRIT_SPO2_TO_SUP"},
+        {"action": "ARRANGE_TRANSPORT_CLINIC", "if_condition": "NO_IMPROVEMENT_5MIN"},
+        {"action": "NOTIFY_CLINIC_INBOUND", "contact_method": "CALL_PRIORITY", "facility_type_target": "NEAREST_OXYGEN_EQUIPPED"}
+      ]
+    },
+    {
+      "trigger_event_code": "CHW_OWN_HEAT_STRESS_CRITICAL",
+      "trigger_description": "CHW experiencing critical heat stress signs",
+      "steps": [
+        {"action": "IMMEDIATE_SELF_CARE", "guidance_code": "GUIDE_CHW_HEATSTROKE_SELF"},
+        {"action": "NOTIFY_SUPERVISOR_SOS", "contact_method": "SMS_SOS_PED_APP"},
+        {"action": "NOTIFY_PEERS_NEARBY", "contact_method": "BLUETOOTH_BROADCAST_SOS"}
+      ]
+    },
+    {
+      "trigger_event_code": "SUSPECTED_DISEASE_OUTBREAK_CLUSTER", // e.g., 3+ cases similar severe symptoms in small area
+      "trigger_description": "Suspected local disease outbreak based on symptom cluster",
+      "steps": [
+        {"action": "LOG_CLUSTER_DETAILS_PED", "guidance_code": "GUIDE_OUTBREAK_REPORTING"},
+        {"action": "NOTIFY_SUPERVISOR_URGENT", "contact_method": "SMS_PED_APP", "message_template_code": "MSG_OUTBREAK_SUS_TO_SUP"},
+        {"action": "INCREASE_SURVEILLANCE_LOCAL", "if_condition": "SUPERVISOR_CONFIRMS_RISK"}
+      ]
+    }
+  ],
+  "contact_lists": { // Can be placeholder, real contacts managed securely
+      "SUPERVISOR_TEAM_A": "+1234567890",
+      "CLINIC_FAC001_EMERGENCY": "+0987654321"
+  },
+  "message_templates":{
+      "MSG_CRIT_SPO2_TO_SUP": "CRITICAL ALERT: Patient [PATIENT_ID] at [LOCATION_GPS_OR_ZONE] has SpO2 [SPO2_VALUE]%. CHW [CHW_ID] needs urgent support/transport advice.",
+      "MSG_OUTBREAK_SUS_TO_SUP": "Suspected outbreak: [SYMPTOM_CLUSTER_DESC] (approx [CASE_COUNT] cases) reported by CHW [CHW_ID] near [LOCATION_HINT]. Request investigation."
+  }
+}
