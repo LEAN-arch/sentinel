@@ -1,0 +1,71 @@
+# test/requirements_backend.txt
+# Python dependencies for the Sentinel Health Co-Pilot backend services,
+# web dashboards (Streamlit), data processing, and AI model development/simulation (Tiers 2/3).
+# Personal Edge Devices (PEDs) use native environments (e.g., Android) and have different dependency management.
+
+# --- Core Data Science & Numerical ---
+pandas>=1.5,<2.3
+numpy>=1.22,<1.27
+scipy>=1.9,<1.14
+
+# --- Geospatial Processing ---
+# Note: Geopandas installation can be complex due to C library dependencies (GDAL, GEOS, PROJ).
+# Ensure these system libraries are installed first. Consider using conda for easier geo stack setup.
+geopandas>=0.12,<0.15
+shapely>=2.0,<2.1  # Geopandas dependency, often needs to match
+fiona>=1.8,<2.0    # Geopandas dependency
+pyproj>=3.3,<3.7   # Geopandas dependency
+
+# --- Web Application & Visualization (Streamlit, Plotly for Tier 2/3 Dashboards) ---
+streamlit>=1.25,<1.36
+plotly>=5.10,<5.21
+
+# --- AI / Machine Learning (for simulation, training, or Tier 2/3 model serving) ---
+scikit-learn>=1.1,<1.5
+# Tensorflow (full version for model development/training or higher-tier serving)
+# For CPU-only:
+tensorflow>=2.10,<2.17
+# OR for GPU support (requires CUDA/cuDNN setup):
+# tensorflow-gpu>=2.10,<2.16 # (Ensure compatibility with your GPU drivers)
+# For lighter AI needs if not training large models in this env, TF might be optional
+# and just a .tflite interpreter for testing could be enough (though tflite_runtime usually not on PyPI for x86)
+
+# Optional: Other ML libraries if used for model building
+# xgboost>=1.6,<2.1
+# lightgbm>=3.3,<4.4
+
+# --- Database Connectivity (Example: PostgreSQL for Facility/Cloud Nodes) ---
+psycopg2-binary>=2.9,<2.10  # For PostgreSQL. Use appropriate connector for other DBs.
+
+# --- FHIR / Interoperability (Optional, if Tiers 2/3 use FHIR objects in Python) ---
+# fhir.resources>=6.2.0,<7.2.0 # For working with FHIR resource models (Pydantic-based)
+# or
+# fhirclient>=4.0.0,<5.0.0     # Client library for FHIR servers
+
+# --- Utilities ---
+python-dotenv>=0.20,<1.1     # For loading .env files
+requests>=2.28,<2.32         # For making HTTP requests (e.g., to external APIs or services)
+# openpyxl>=3.0,<3.2           # For reading/writing Excel files, if needed by pandas
+
+# --- Logging (Python's logging is built-in, but for advanced config like structlog) ---
+# structlog>=21.0,<24.2.0      # Optional, for structured logging
+
+# == Development & Testing Dependencies ==
+# These are often kept in a separate requirements-dev.txt but included here for completeness of an environment.
+# You can comment them out if you manage dev dependencies separately.
+# pytest>=7.0,<8.2
+# pytest-mock>=3.7,<3.13
+# freezegun>=1.2,<1.5          # For testing time-sensitive code
+# flake8>=5.0,<7.1             # Linter
+# black>=22.0,<24.5             # Formatter
+# isort>=5.10,<5.14            # Import sorter
+# mypy>=0.971,<1.11            # Static type checker (if using type hints extensively)
+# pre-commit>=2.20,<3.8        # For managing pre-commit hooks
+
+# --- Specific for some data processing steps if using complex cleaning ---
+# html5lib # If pandas.read_html is used extensively
+# lxml     # Another parser for read_html and XML processing
+
+# Ensure versions are compatible. Regularly update and test your dependency set.
+# `pip list --outdated` can help identify packages to update.
+# `pipdeptree` can help visualize dependency relationships.
