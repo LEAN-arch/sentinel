@@ -1,0 +1,5 @@
+zone_id,name,population,socio_economic_index,num_clinics,avg_travel_time_clinic_min, predominant_hazard_type, typical_workforce_exposure_level
+ZoneA,North Sector Alpha,12500,0.45,2,25,HEAT_DUST,HIGH
+ZoneB,South Sector Beta,21000,0.62,1,40,FLOODING,MODERATE
+ZoneC,East Sector Gamma,8500,0.30,1,15,POLLUTION_AIR,MODERATE_HIGH
+ZoneD,West Sector Delta,15000,0.75,3,10,NONE_SPECIFIC,LOW
