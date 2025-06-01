@@ -1,0 +1,9 @@
+# packages.txt (in repository root)
+
+libgdal-dev
+gdal-bin
+libspatialindex-dev
+build-essential
+python3-dev 
+# Sometimes libproj-dev is also needed explicitly, though often pulled by libgdal-dev
+# proj-bin # (if pyproj needs CLI tools separately, less common for just library use)
